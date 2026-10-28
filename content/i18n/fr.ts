@@ -89,7 +89,7 @@ export const fr = {
     next: "Projet suivant",
   },
   footer: {
-    thanks: "Et si on en parlait autour d’un café ?",
+    thanks: "Et si on parlait autour d’un café ?",
     copyright: "© 2026 Alexie Romeu · Lead Product Designer",
     status: "Ouverte aux opportunités",
   },
