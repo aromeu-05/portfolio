@@ -277,7 +277,7 @@ h2 { font-weight: 500; font-size: clamp(30px, 3.6vw, 52px); letter-spacing: -.03
 @media(max-width:760px){.index-card{padding:4px 10px}.row{grid-template-columns:30px 1fr 24px}.row .p,.row .s{display:none}}
 
 /* CASE */
-.case{padding-block:40px 110px}
+.case{padding-block:40px 110px;scroll-margin-top:76px}
 .case-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;margin-bottom:28px}
 .case-head > div{min-width:0}
 .case-head .top{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin-bottom:14px;color:var(--muted)}
