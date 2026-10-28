@@ -1,0 +1,50 @@
+/* Mode interactif des motions (accueil) : repère « À vous » et cible cliquable.
+   Préfixé par .m-interactive pour passer devant les remises à zéro des motions (.athm * {padding:0}…). */
+
+.m-interactive { cursor: default; }
+
+.m-interactive .m-target {
+  cursor: pointer;
+  animation: mTarget 1.4s ease-in-out infinite !important;
+}
+@keyframes mTarget {
+  0%, 100% { box-shadow: 0 0 0 3px #FF4A1C, 0 0 0 3px rgba(255, 74, 28, .35); }
+  50% { box-shadow: 0 0 0 3px #FF4A1C, 0 0 0 12px rgba(255, 74, 28, 0); }
+}
+
+.m-interactive .m-hint {
+  position: absolute;
+  z-index: 20;
+  margin: 0;
+  transform: translate(-50%, 0);
+  background: var(--pop);
+  color: #fff;
+  font: 500 13px/1.3 var(--sans);
+  letter-spacing: 0;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 4px 14px 14px 14px;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px -12px rgba(255, 74, 28, .7);
+  opacity: 0;
+  transition: opacity .25s, transform .35s var(--ease);
+  cursor: pointer;
+}
+.m-interactive .m-hint.m-above { transform: translate(-50%, calc(-100% + 6px)); border-radius: 14px 14px 14px 4px; }
+.m-interactive .m-hint.m-below { transform: translate(-50%, -6px); }
+.m-interactive .m-hint.m-on { opacity: 1; }
+.m-interactive .m-hint.m-on.m-above { transform: translate(-50%, -100%); }
+.m-interactive .m-hint.m-on.m-below { transform: translate(-50%, 0); }
+.m-interactive .m-hint:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+/* Petit écran : format portrait, caméra qui suit l'action (engine.ts).
+   Étapes et notifications sortent du canevas pour garder une taille lisible. */
+.rgcm.m-narrow .q-step, .oppm.m-narrow .o-step {
+  left: 10px; bottom: 10px; font-size: 10.5px; padding: 6px 12px 6px 9px; gap: 7px;
+}
+.rgcm.m-narrow .q-step i, .oppm.m-narrow .o-step i { width: 6px; height: 6px; }
+.rgcm.m-narrow .q-toast {
+  top: 10px; font-size: 11.5px; padding: 7px 12px; gap: 7px; max-width: calc(100% - 20px); white-space: normal;
+}
+.vidm.m-narrow .v-note { display: none; }
+.m-interactive.m-narrow .m-hint { font-size: 12px; padding: 7px 10px; white-space: normal; max-width: 220px; text-align: center; }

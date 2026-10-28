@@ -1,0 +1,125 @@
+export const meta = {
+  lede: "J'ai conçu Vidal Ma Santé, l'application qui met la base médicament de Vidal dans la poche des patients. Son but : donner à chacun l'information adaptée à sa propre prescription.",
+  facts: [
+    ["Client", "Vidal, référence de l'information sur le médicament en France"],
+    ["Produit", "Vidal Ma Santé, application mobile grand public"],
+    ["Mon rôle", "Product designer"],
+    ["Période", "2021 – 2022 (V0, V1, V1.5)"],
+    ["Équipe", "PM et développeurs Galadrim, groupe de travail Vidal"],
+  ],
+  cover: { motion: "vidal", caption: "Scan → fiche médicament · motion reconstruit depuis la V1.5" },
+  chapters: [
+    { id: "probleme", nav: "Le problème" },
+    { id: "role", nav: "Mon rôle" },
+    { id: "d1", nav: "Décision 1" },
+    { id: "d2", nav: "Décision 2" },
+    { id: "d3", nav: "Décision 3" },
+    { id: "resultat", nav: "Résultat" },
+  ],
+};
+
+{/* La question de design a été formulée pour le site, elle n'est pas dans la doc : à valider (brief, section 6). */}
+
+<Chapter id="probleme" title="Le problème">
+
+Vidal possède l'information la plus fiable sur le médicament, mais elle est écrite pour les professionnels de santé.
+
+Son modèle repose sur les médecins, pharmaciens et éditeurs de logiciels, qui paient pour sécuriser les prescriptions. Le grand public, lui, n'avait jamais vraiment été servi. Pourtant, 70 000 particuliers avaient déjà créé un compte sur vidal.fr.
+
+Une phase d'études menée par Vidal auprès de patients, d'aidants et de soignants avait confirmé le besoin. Le pari : transformer une base documentaire en application qui répond à la situation de chaque patient.
+
+L'enjeu de design était double :
+
+- rendre compréhensible une information médicale très technique, sans la déformer ;
+- personnaliser les alertes (interactions, contre-indications) à partir du profil et des traitements du patient.
+
+L'application visait aussi le futur store de Mon espace santé, ce qui imposait des exigences de sécurité et d'échange de données.
+
+<Question>Comment rendre une information médicale de référence compréhensible par chaque patient, sans la déformer ?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="Mon rôle">
+
+J'ai conçu les parcours et les écrans de l'application, de la V0 à la V1.5.
+
+Le projet suivait un rythme serré : un point quotidien avec l'équipe Vidal et un point hebdomadaire avec leur groupe de travail. Pour la V1.5, des ateliers de conception avec les équipes de Vidal ont nourri mes choix.
+
+Le périmètre couvrait :
+
+- le scan d'une boîte de médicament et la fiche médicament ;
+- le suivi des traitements en cours et l'historique ;
+- l'aide à l'automédication et les alertes d'interactions ;
+- le profil santé, le stockage des ordonnances et les contenus éditoriaux.
+
+<Figure src="/images/vidal/web/vidal-01-ouverture-visuels-stores.jpg" width={2400} height={866} caption="Les visuels stores de Vidal Ma Santé" />
+
+</Chapter>
+
+<Chapter id="d1" decision="Décision 01" title="Une fiche médicament qui répond à « est-ce que je peux le prendre ? »">
+
+La fiche médicament s'est séparée en deux niveaux : une synthèse, puis un « en savoir plus ».
+
+La synthèse répond à une seule question, décomposée en trois vérifications :
+
+- est-il compatible avec moi ?
+- est-il encore valable, pas périmé ?
+- répond-il à mes symptômes ?
+
+L'information complète de Vidal reste accessible, mais elle ne bloque plus la réponse. Le ton s'inspire du FALC, le « facile à lire et à comprendre ».
+
+<Phones>
+  <Figure src="/images/vidal/web/vidal-03a-fiche-synthese.jpg" width={375} height={812} maxWidth={320} caption="La synthèse : ce qui me concerne d'abord" />
+  <Figure src="/images/vidal/web/vidal-03b-fiche-en-savoir-plus.jpg" width={375} height={812} maxWidth={320} caption="En savoir plus : l'information complète de Vidal" />
+</Phones>
+
+</Chapter>
+
+<Chapter id="d2" decision="Décision 02" title="Des alertes graduées, pas toutes au même niveau">
+
+Toutes les interactions ne se valent pas. Une interaction alimentaire, par exemple, appelle la vigilance mais pas l'alarme : elle s'affiche en orange, pas en rouge. Les spécifications définissent aussi quels aliments afficher, pour ne pas noyer le patient sous les avertissements.
+
+<Phones>
+  <Figure src="/images/vidal/web/vidal-02b-store-alerte-orange-doliprane.jpg" width={1284} height={2778} maxWidth={320} caption="Vigilance : alerte orange" />
+  <Figure src="/images/vidal/web/vidal-02c-store-pas-d-interaction-spasfon.jpg" width={1283} height={2778} maxWidth={320} caption="Aucune interaction grave" />
+  <Figure src="/images/vidal/web/vidal-04-alertes-basees-sur-le-profil.jpg" width={375} height={667} maxWidth={320} caption="Les alertes calculées à partir du profil et du traitement en cours" />
+</Phones>
+
+<Todo>Ajouter une alerte rouge à côté de l'orange si une capture existe.</Todo>
+
+</Chapter>
+
+<Chapter id="d3" decision="Décision 03" title="Un profil santé que le patient sait remplir">
+
+Le moteur de Vidal personnalise les alertes à partir du profil : allergies, sexe, fonction rénale. Mais il attend une clairance de la créatinine en ml/min, alors que les laboratoires fournissent une autre valeur. Demander ce chiffre au patient aurait été lourd et source d'erreurs.
+
+La piste retenue : remplacer la valeur de laboratoire par un niveau d'insuffisance rénale (légère, modérée, sévère), que le moteur accepte à la place.
+
+<Figure src="/images/vidal/web/vidal-05-profil-sante.jpg" width={375} height={656} maxWidth={320} caption="Le profil santé : des alertes personnalisées sans jargon" />
+
+<Todo>Capture de la saisie du niveau d'insuffisance rénale à retrouver (absente du Figma V1.5).</Todo>
+
+</Chapter>
+
+<Chapter id="resultat" title="Résultat">
+
+Vidal Ma Santé est sortie fin 2021 sur iOS et Android, puis a reçu trois reconnaissances en 2022.
+
+<Timeline
+  head={["Date", "Reconnaissance"]}
+  rows={[
+    ["Mai 2022", "Première application labellisée par l'Association du bon usage du médicament"],
+    ["Novembre 2022", "Parmi les 12 premières applications du catalogue Mon espace santé"],
+    ["Fin 2022", "Prix Galien, catégorie grandes entreprises"],
+  ]}
+/>
+
+<Stats items={[
+  ["3", "reconnaissances en 2022"],
+  ["3 200", "téléchargements au moment du label"],
+  ["1 000+", "inscrits, après un lancement volontairement discret"],
+]} />
+
+Vidal met en avant un langage patient très éloigné de celui d'une notice : c'est exactement l'objet de la fiche synthèse.
+
+</Chapter>

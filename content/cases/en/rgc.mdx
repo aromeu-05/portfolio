@@ -1,0 +1,114 @@
+export const meta = {
+  lede: "I'm designing Rosie, the software replacing the old PMS across the Resonance golf network: tee sheet, point of sale, customers. To move fast, I validate each module with a coded prototype, tested directly with the client.",
+  facts: [
+    ["Client", "Resonance Golf Collection, a network of golf courses, hotels and restaurants"],
+    ["Product", "Rosie, a custom golf PMS (web)"],
+    ["My role", "Product designer, the only designer on the project"],
+    ["Period", "Since February 2026, design in progress"],
+    ["Team", "Solutions architect, PM, lead devs and full-stack developers (Galadrim)"],
+  ],
+  cover: { motion: "rgc", caption: "Tee sheet v3 · motion rebuilt from the Rosie prototype" },
+  chapters: [
+    { id: "probleme", nav: "The problem" },
+    { id: "role", nav: "My role" },
+    { id: "d1", nav: "Decision 1" },
+    { id: "d2", nav: "Decision 2" },
+    { id: "d3", nav: "Decision 3" },
+    { id: "d4", nav: "Decision 4" },
+    { id: "resultat", nav: "Outcome" },
+  ],
+};
+
+{/* End-of-page figures (8 weeks, 82 decisions, 100%) still need validation (brief, sections 6 and 7). Do not name the old software. */}
+
+<Chapter id="probleme" title="The problem">
+
+Resonance runs its golf courses with 36 tools that don't talk to each other, built around a central system at the end of its life.
+
+The group also can't see a customer as a whole: its database holds about 500,000 profiles, heavily duplicated.
+
+Scoping took eight weeks: 14 workshops with the business teams and two site visits, in the Yvelines and at Le Touquet. It concluded that the old PMS should be fully replaced by a single platform, with one customer record shared across every business line.
+
+<Question>How do you give a golf course's front desk one screen to run the day, when it used to juggle several tools?</Question>
+
+At the counter, staff need to book, take payment and recognize a customer in a few seconds, often with a line waiting.
+
+</Chapter>
+
+<Chapter id="role" title="My role and my method" label="My role">
+
+I'm designing the entire PMS, and every module goes through a coded prototype rather than static mockups.
+
+My scope covers three areas:
+
+- **operations**: tee sheet and point of sale;
+- **customers**: the unified customer database, as seen from headquarters;
+- **administration**: legal entities, sites, products, users and permissions.
+
+From the point of sale to the tee sheet and the dashboard, I build the prototypes in HTML, deployed online automatically with every change. The client clicks, books and takes payments just as they would at the counter. Their feedback is about real use, not about a picture.
+
+I then evolved this workflow with Claude Code to iterate even faster between client check-ins.
+
+</Chapter>
+
+<Chapter id="d1" decision="Decision 01" title="The whole golf day on one screen">
+
+The tee sheet shows every course side by side, slot by slot. A venue like Le Touquet has three, of 9 or 18 holes.
+
+- **At the top**, four numbers for the day: tee times, expected players, occupancy rate, and amount still to collect, in red.
+- **For each course**, the day's format (18 holes, front nine, back nine, reversed) is set in one click.
+- **Blocked slots**, such as green maintenance, are hatched, so no one can book a player into them by mistake.
+
+The right-hand column gathers what the front desk needs to know without looking for it: competition calendar, notes for the day, the doctor on the course, partners' remaining quotas.
+
+<Figure src="/images/rgc/web/rgc-01-planning-multiparcours.jpg" caption="The tee sheet: three courses side by side, hatched blocked slots, the day's indicators" />
+
+</Chapter>
+
+<Chapter id="d2" decision="Decision 02" title="Recognizing a player without opening their profile">
+
+Each player carries a channel tag: web booking, tour operator, sports association, member, under 26. An icon shows whether they have paid and whether they have arrived.
+
+On hover, a tooltip flags what matters at the counter: VIP customer, birthday today, revenue generated. The front desk can personalize the conversation without leaving the tee sheet.
+
+<Figure src="/images/rgc/web/rgc-02-ligne-joueur-infobulle-vip.jpg" width={1200} height={1065} maxWidth={520} caption="Channel tags, paid / arrived statuses, and a VIP customer's tooltip" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Decision 03" title="A point of sale that knows the customer">
+
+The point of sale separates the walk-in customer, sold to anonymously, from the identified customer. As soon as a customer is selected, their profile appears next to the receipt with what the host needs to know to serve them well:
+
+- a customer memo: their habits, calculated from their purchases, and dates not to miss, such as a birthday;
+- their remaining credits, for example 3 of 10 driving range buckets, deducted in one click;
+- their e-wallet balance;
+- the discounts tied to their status, in the pro shop, the restaurant or on lessons.
+
+The checkout becomes a moment to sell and to enrich the customer database, not just to take payment. Each host can also pin their best-selling products in “My register.”
+
+<BeforeAfter>
+  <Figure src="/images/rgc/web/rgc-03-caisse-client-identifie.jpg" width={1600} height={1000} caption="The point of sale with an identified customer: memo, remaining credits, status perks" />
+  <Figure src="/images/rgc/web/rgc-04-caisse-ticket-vente-additionnelle.jpg" width={1600} height={1111} caption="On the receipt, the upsell pushed by management" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="d4" decision="Decision 04" title="Sales management at the counter">
+
+A “Sales targets” block shows progress on green fees, golf carts, pro shop and memberships, by day or by week. A tab opens a challenge between courses in the network. That way, headquarters' management goals reach all the way down to the front desk screen.
+
+</Chapter>
+
+<Chapter id="resultat" title="Outcome">
+
+<Stats items={[
+  ["8", "weeks of scoping, 14 business workshops"],
+  ["82", "structural decisions approved by the steering committee"],
+  ["100%", "of modules prototyped in code before being specified"],
+]} />
+
+The project is ongoing: the scoping was approved by the steering committee on April 27, 2026, and development was scheduled to start in July 2026.
+
+<Learn label="What I took away">On a product this dense, a clickable prototype lets the client judge real use from the very first session.</Learn>
+
+</Chapter>

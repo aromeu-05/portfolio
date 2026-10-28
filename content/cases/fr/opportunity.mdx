@@ -1,0 +1,126 @@
+export const meta = {
+  lede: "J'ai conçu l'éditeur de scénarios d'Opportunity : l'outil où un marketeur enchaîne emails, SMS, WhatsApp ou appels automatisés selon les réactions de chaque contact. Il s'inscrit dans la refonte complète de leur plateforme de marketing automation, passée en SaaS.",
+  facts: [
+    ["Client", "Opportunity, éditeur français d'envoi multicanal (email, SMS, voix)"],
+    ["Produit", "Plateforme de marketing automation, refonte du front"],
+    ["Mon rôle", "Product designer, éditeur de scénarios et applications Studio"],
+    ["Période", "Octobre 2025 – 2026"],
+    ["Équipe", "Deux designers, deux PM, cinq développeurs full stack (Galadrim)"],
+  ],
+  cover: { motion: "opportunity", caption: "Éditeur de scénario · motion reconstruit depuis les maquettes Figma" },
+  chapters: [
+    { id: "probleme", nav: "Le problème" },
+    { id: "role", nav: "Mon rôle" },
+    { id: "d1", nav: "Décision 1" },
+    { id: "d2", nav: "Décision 2" },
+    { id: "d3", nav: "Décision 3" },
+    { id: "d4", nav: "Décision 4" },
+    { id: "resultat", nav: "Résultat" },
+  ],
+};
+
+{/* Chiffres de fin de page (9 canaux, 5 étapes, 2 mois de recette) à faire valider (brief, section 6). */}
+
+<Chapter id="probleme" title="Le problème">
+
+Opportunity vendait depuis une quinzaine d'années un logiciel d'envoi de messages trop ancien pour passer en SaaS, avec une interface dépassée.
+
+Ses clients sont de grands comptes. Ils l'utilisent beaucoup pour le recouvrement : relancer des factures par email, SMS ou message vocal, à grande échelle. Lancer la nouvelle plateforme en SaaS pour l'été 2026 était un enjeu stratégique pour l'entreprise.
+
+Le cœur du sujet, c'est le scénario : une suite d'envois qui s'adapte à chaque contact. Si le client n'ouvre pas l'email en 48 heures, on lui envoie un SMS ; s'il clique, on s'arrête. Avec neuf canaux, des règles d'horaires par pays et des limites d'envoi, la logique devient vite illisible.
+
+<Question>Comment rendre une logique d'automatisation complexe lisible et modifiable par un marketeur, sans lui demander de penser comme un développeur ?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="Mon rôle">
+
+Nous étions deux designers sur la plateforme. J'ai porté l'éditeur de scénarios et les applications du Studio, dont Touch & Pay, le parcours de paiement envoyé par lien.
+
+{/* Masquer le logo si le client ne peut pas être nommé (brief, section 7) */}
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-05a-touch-and-pay-studio-applications.jpg" width={1440} height={840} caption="Studio · les applications, dont Touch & Pay" />
+  <Figure src="/images/opportunity/web/opportunity-05b-touch-and-pay-page-paiement.jpg" width={1440} height={850} caption="Touch & Pay · la page reçue par le client" />
+</BeforeAfter>
+
+Chaque semaine, un point de conception avec le head of product d'Opportunity validait ou renvoyait chaque maquette, avec des décisions notées écran par écran. Les développeurs avançaient en parallèle sur un environnement de test, que les équipes métier d'Opportunity ont ensuite recetté avec des cahiers de tests.
+
+</Chapter>
+
+<Chapter id="d1" decision="Décision 01" title="Un scénario qui se lit comme un schéma">
+
+L'éditeur est un canevas visuel : on part de « Début du scénario », avec le nombre de contacts concernés, et on ajoute des blocs reliés entre eux.
+
+La palette de gauche sépare deux familles :
+
+- **la logique** : condition, test A/B, pause, fin du scénario ;
+- **les canaux** : email, SMS, RCS, WhatsApp, note vocale, callbot, chacun en version simple ou conversationnelle.
+
+Le scénario peut se séparer dès le départ par pays, chaque branche gardant ses propres règles d'horaires.
+
+<Figure src="/images/opportunity/web/opportunity-01-ouverture-editeur-scenario.jpg" width={1440} height={840} caption="L'éditeur de scénario, panneau de configuration du bloc Email ouvert" />
+
+</Chapter>
+
+<Chapter id="d2" decision="Décision 02" title="Chaque envoi débouche sur des réactions, pas sur des conditions à écrire">
+
+Sous chaque bloc d'envoi, quatre sorties sont déjà prêtes : aucune interaction, interaction partielle, objectif atteint, et erreur. Le marketeur n'écrit aucune règle : il clique sur le « + » d'une sortie pour dire ce qui se passe ensuite.
+
+La sortie « Erreur » est gérée par la plateforme, qui arrête le scénario. Une infobulle l'explique, pour qu'on ne cherche pas à la brancher.
+
+<Figure src="/images/opportunity/web/opportunity-02-zoom-quatre-sorties-bloc-email.jpg" width={340} height={355} maxWidth={340} caption="Les quatre sorties d'un bloc d'envoi ; la sortie Erreur est gérée par la plateforme" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Décision 03" title="Configurer un bloc en étapes guidées">
+
+Un clic sur un bloc ouvre un panneau latéral numéroté : contenu, expéditeur, délai d'analyse, lissage des envois. Chaque réglage technique est accompagné de son explication en clair :
+
+- le délai d'analyse est à 48 heures par défaut, avec un repère : au-delà de 96 heures, il n'y a en moyenne plus d'interaction ;
+- la limite d'envois par heure explique qu'elle protège la réputation de l'expéditeur.
+
+Les valeurs par défaut font le travail ; l'expert peut les ajuster.
+
+<Figure src="/images/opportunity/web/opportunity-01-ouverture-editeur-scenario.jpg" width={1440} height={840} caption="Le panneau en étapes : contenu, expéditeur, délai d'analyse, lissage" />
+
+</Chapter>
+
+<Chapter id="d4" decision="Décision 04" title="Créer un scénario en cinq étapes">
+
+La première version mettait tout dans l'éditeur. Je l'ai restructurée en un parcours par étapes, validé en mai 2026 :
+
+1. le cadre du scénario ;
+2. les destinataires : une liste, puis un segment de cette liste, avec la possibilité d'en créer une sans quitter le parcours ;
+3. l'éditeur visuel ;
+4. les paramètres : horaires d'envoi par pays et webhooks ;
+5. un récapitulatif des crédits consommés avant de lancer.
+
+Le récapitulatif répond à une règle décidée avec Opportunity : chaque abonnement plafonne les crédits par canal. Le marketeur voit ce que son scénario va coûter avant de l'envoyer.
+
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-03a-avant-first-version-editeur.jpg" width={1440} height={850} caption="Avant · tout dans l'éditeur" />
+  <Figure src="/images/opportunity/web/opportunity-03b-apres-etape1-type-de-scenario.jpg" width={1075} height={928} caption="Après · étape 1, le cadre du scénario" />
+</BeforeAfter>
+
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-03c-apres-etape2-destinataires.jpg" width={1075} height={1461} caption="Étape 2 · liste, segments et pays de destination" />
+  <Figure src="/images/opportunity/web/opportunity-04-recap-credits.jpg" width={1075} height={1331} caption="Étape 5 · le récapitulatif des crédits avant lancement" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="resultat" title="Résultat">
+
+<Stats items={[
+  ["9", "canaux d'envoi dans un même scénario"],
+  ["5", "étapes pour créer un scénario"],
+  ["2", "mois de recette par les équipes métier"],
+]} />
+
+La plateforme est en développement depuis avril 2026, et les équipes métier d'Opportunity l'ont recettée en juin et juillet 2026.
+
+Ces sessions de tests avec de vrais utilisateurs ont fait remonter des retours très concrets, comme le vocabulaire WhatsApp à aligner sur celui de Meta ou une évolution réglementaire des horaires d'envoi. Elles ont alimenté directement la suite de la conception.
+
+<Learn>Sur un outil d'automatisation, le design ne simplifie pas la logique, il la rend visible. Les bonnes valeurs par défaut et les explications au bon endroit font le reste.</Learn>
+
+</Chapter>

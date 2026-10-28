@@ -1,0 +1,114 @@
+export const meta = {
+  lede: "Je conçois Rosie, le logiciel qui remplace l'ancien PMS des golfs du réseau Resonance : planning des départs, caisse, clients. Pour aller vite, je valide chaque module avec un prototype codé, testé directement avec le client.",
+  facts: [
+    ["Client", "Resonance Golf Collection, réseau de golfs, hôtels et restaurants"],
+    ["Produit", "Rosie, PMS golf sur mesure (web)"],
+    ["Mon rôle", "Product designer, seule designer du projet"],
+    ["Période", "Depuis février 2026, conception en cours"],
+    ["Équipe", "Solutions architect, PM, lead devs et développeurs full stack (Galadrim)"],
+  ],
+  cover: { motion: "rgc", caption: "Planning des départs v3 · motion reconstruit depuis le proto Rosie" },
+  chapters: [
+    { id: "probleme", nav: "Le problème" },
+    { id: "role", nav: "Mon rôle" },
+    { id: "d1", nav: "Décision 1" },
+    { id: "d2", nav: "Décision 2" },
+    { id: "d3", nav: "Décision 3" },
+    { id: "d4", nav: "Décision 4" },
+    { id: "resultat", nav: "Résultat" },
+  ],
+};
+
+{/* Chiffres de fin de page (8 semaines, 82 décisions, 100 %) à faire valider (brief, sections 6 et 7). Ne pas nommer l'ancien logiciel. */}
+
+<Chapter id="probleme" title="Le problème">
+
+Resonance gère ses golfs avec 36 outils qui ne se parlent pas, autour d'un logiciel central en fin de vie.
+
+Le groupe ne peut pas non plus voir un client dans sa globalité : sa base compte environ 500 000 profils, massivement dupliqués.
+
+Le cadrage a duré huit semaines : 14 ateliers avec les équipes métier et deux visites terrain, aux Yvelines et au Touquet. Il a conclu au remplacement complet de l'ancien PMS par un socle unique, avec un référentiel client commun à toutes les activités.
+
+<Question>Comment donner à l'accueil d'un golf un seul écran pour gérer la journée, là où il jonglait entre plusieurs outils ?</Question>
+
+Au comptoir, il faut réserver, encaisser et reconnaître un client en quelques secondes, souvent avec une file d'attente.
+
+</Chapter>
+
+<Chapter id="role" title="Mon rôle et ma méthode" label="Mon rôle">
+
+Je conçois l'ensemble du PMS, et chaque module passe par un prototype codé plutôt que par des maquettes statiques.
+
+Mon périmètre couvre trois espaces :
+
+- **l'opérationnel** : planning des départs et caisse ;
+- **les clients** : la base clients unifiée, vue du siège ;
+- **l'administration** : entités juridiques, sites, produits, utilisateurs et droits.
+
+De la caisse au planning en passant par le dashboard, je construis les prototypes en HTML, déployés automatiquement en ligne à chaque modification. Le client clique, réserve, encaisse comme il le ferait au comptoir. Ses retours portent sur l'usage réel, pas sur une image.
+
+J'ai ensuite fait évoluer ce workflow avec Claude Code, pour itérer encore plus vite entre deux points client.
+
+</Chapter>
+
+<Chapter id="d1" decision="Décision 01" title="Toute la journée du golf sur un seul écran">
+
+Le planning des départs affiche tous les parcours côte à côte, créneau par créneau. Un golf comme celui du Touquet en a trois, de 9 ou 18 trous.
+
+- **En tête**, quatre chiffres pour la journée : départs, joueurs attendus, taux d'occupation, et montant à encaisser, en rouge.
+- **Pour chaque parcours**, la formule du jour (18 trous, aller, retour, inversé) se règle d'un clic.
+- **Les créneaux bloqués**, comme l'entretien des greens, sont hachurés : on ne peut pas y placer un joueur par erreur.
+
+La colonne de droite rassemble ce que l'accueil doit savoir sans le chercher : calendrier des compétitions, annotations du jour, médecin présent sur le parcours, quotas restants des partenaires.
+
+<Figure src="/images/rgc/web/rgc-01-planning-multiparcours.jpg" caption="Le planning des départs : trois parcours côte à côte, créneaux bloqués hachurés, indicateurs du jour" />
+
+</Chapter>
+
+<Chapter id="d2" decision="Décision 02" title="Reconnaître un joueur sans ouvrir sa fiche">
+
+Chaque joueur porte une étiquette de canal : réservation web, tour-opérateur, association sportive, membre, moins de 26 ans. Une icône indique s'il a payé et s'il est arrivé.
+
+Au survol, une infobulle signale ce qui compte au comptoir : client VIP, anniversaire du jour, chiffre d'affaires généré. L'accueil peut personnaliser l'échange sans quitter le planning.
+
+<Figure src="/images/rgc/web/rgc-02-ligne-joueur-infobulle-vip.jpg" width={1200} height={1065} maxWidth={520} caption="Étiquettes de canal, statuts payé / arrivé, et l'infobulle d'un client VIP" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Décision 03" title="Une caisse qui connaît le client">
+
+La caisse distingue le client de passage, en vente anonyme, du client identifié. Dès qu'un client est sélectionné, sa fiche s'affiche à côté du ticket avec ce que l'hôte doit savoir pour bien le servir :
+
+- un mémo client : ses habitudes, calculées depuis ses achats, et les dates à ne pas manquer, comme un anniversaire ;
+- ses crédits restants, par exemple 3 seaux de practice sur 10, décomptables en un clic ;
+- le solde de son e-wallet ;
+- les remises liées à son statut, sur le proshop, la restauration ou les cours.
+
+La caisse devient un moment de vente et d'enrichissement de la base client, pas seulement un encaissement. Chaque hôte peut aussi épingler ses produits les plus vendus dans « Ma caisse ».
+
+<BeforeAfter>
+  <Figure src="/images/rgc/web/rgc-03-caisse-client-identifie.jpg" width={1600} height={1000} caption="La caisse avec un client identifié : mémo, crédits restants, avantages de son statut" />
+  <Figure src="/images/rgc/web/rgc-04-caisse-ticket-vente-additionnelle.jpg" width={1600} height={1111} caption="Au ticket, la vente additionnelle poussée par la direction" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="d4" decision="Décision 04" title="Le pilotage commercial au comptoir">
+
+Un bloc « Objectifs de vente » montre, au jour ou à la semaine, l'avancement sur les green-fees, voiturettes, proshop et cartes. Un onglet ouvre un challenge entre golfs du réseau. L'objectif de pilotage du siège descend ainsi jusqu'à l'écran de l'accueil.
+
+</Chapter>
+
+<Chapter id="resultat" title="Résultat">
+
+<Stats items={[
+  ["8", "semaines de cadrage, 14 ateliers métier"],
+  ["82", "décisions structurantes validées en comité"],
+  ["100 %", "des modules prototypés en code avant d'être spécifiés"],
+]} />
+
+Le projet est en cours : le cadrage a été validé en comité de pilotage le 27 avril 2026, et le développement était prévu à partir de juillet 2026.
+
+<Learn>Sur un produit métier aussi dense, un prototype cliquable permet au client de juger l'usage réel dès la première séance.</Learn>
+
+</Chapter>

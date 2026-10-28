@@ -1,0 +1,154 @@
+export const meta = {
+  lede: "I designed ATHOS, the tool where an AI checks Effy's energy grant files and a human reviewer makes the call. It took three weeks to go from the tender mockups to a version the client signed off on. The tool is now in production.",
+  facts: [
+    ["Client", "Effy, a CEE delegate (France's energy-saving certificates scheme, which funds home energy renovation grants)"],
+    ["Product", "ATHOS, an AI-assisted internal tool for reviewing grant files"],
+    ["My role", "Product designer, sole designer on the project"],
+    ["Design", "January – February 2026"],
+    ["Team", "PM, AI engineers, full-stack developers (Galadrim)"],
+  ],
+  cover: { motion: "athos", caption: "File view · motion rebuilt from the approved V18" },
+  chapters: [
+    { id: "probleme", nav: "The problem" },
+    { id: "role", nav: "My role" },
+    { id: "d1", nav: "Decision 1" },
+    { id: "d2", nav: "Decision 2" },
+    { id: "d3", nav: "Decision 3" },
+    { id: "iterations", nav: "Iterations" },
+    { id: "resultat", nav: "Outcome" },
+  ],
+};
+
+{/* Screenshots: web version (1600 px) of the PNGs in public/images/effy. Blur before publishing (brief, section 7). */}
+
+<Chapter id="probleme" title="The problem">
+
+Reviewing one file took 30 minutes to an hour in Priméo, Effy's old tool, including about 10 minutes per document.
+
+A file mixes quotes, invoices, tax notices and certificates, often sent more than once. The reviewer checks each document against an official spec sheet for the type of work. They also check that documents match each other: same address, same amount, a quote signed before the work started.
+
+ATHOS takes a different approach. The AI extracts the data, applies the rules and sorts each file:
+
+<StatusList items={[
+  ["ok", "green", ": compliant, it goes to audit;"],
+  ["warn", "orange", ": something needs the reviewer's eye;"],
+  ["ko", "red", ": a document is non-compliant, and the client or contractor has to be contacted."],
+]} />
+
+Two constraints framed the design. A false positive is costly, because the file is regulated. And Effy wanted a very guided flow: some reviewers were redoing checks that didn't need redoing.
+
+<Question>How do you make the AI's work verifiable in a few seconds, without the reviewer redoing everything?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="My role">
+
+I was the only designer on the project, from the review flow down to the detailed screens.
+
+The project ran on two parallel tracks: AI and business logic on one side, design on the other. Every week, I presented my mockups to Effy's head of operations and to a former reviewer. Their feedback shaped the next version.
+
+I designed:
+
+- the reviewer's portfolio (“My files”);
+- the file review screen;
+- file assignment and statistics;
+- the back office: CEE spec sheets and user management.
+
+</Chapter>
+
+<Chapter id="d1" decision="Decision 01" title="Every alert ends with a human decision">
+
+I turned each AI alert into a card that ends with Approve or Reject. A “point to check” card contains:
+
+- the AI's explanation, in plain language (“the quote says ‘Docteur Millet’, the invoice ‘docteur millet’: case mismatch”);
+- links to the documents involved;
+- a confidence score;
+- a specific question, then two answers.
+
+<Figure src="/images/effy/web/effy-03-carte-point-zoom.jpg" height={960} caption="The “point to check” card, annotated" />
+
+The first version had a third button, “Suggest to AI”. I removed it to align the card with the review model we had agreed on with Effy. A document “to review” can only end up approved or rejected. The reviewer always stays in control: rejecting doesn't send anything automatically.
+
+The AI then drafts the request for missing information. The reviewer reads it, edits it if needed, and sends it.
+
+<BeforeAfter>
+  <Figure src="/images/effy/web/effy-02-fiche-dossier-avant.jpg" caption="Before · tender mockup" />
+  <Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="After · February 18 version" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="d2" decision="Decision 02" title="Alert, data and proof side by side">
+
+The file view went from two columns to three: alerts, extracted data, source document.
+
+The tender version showed the alerts and the document. It was missing the form sections: the fields the reviewer has to fill in to generate the certificate. But with Effy, we had defined the first compliance criterion for a file: no missing information in those sections. So they moved to the center of the screen.
+
+In the form sections:
+
+- a wand icon marks each field the AI pre-filled, which stays editable;
+- an empty required field turns red, but only if it's expected at that stage. An invoice field isn't, until the invoice has arrived;
+- a field the reviewer filled in by hand counts as valid.
+
+In the document, a marker points to the area the information came from. The alerts panel collapses while keeping its counters, to make room for the document.
+
+**The reviewer no longer searches for anything: they see the alert, the value and the proof in one place.**
+
+<Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="The February 18 file view, form sections open" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Decision 03" title="The AI's colors organize the whole portfolio">
+
+The green, orange, red code isn't only used inside a file: it sorts the day's work. The “My files” page answers one question: what should I handle first?
+
+- tabs by color, each with its file count, sorted by priority by default;
+- three metrics at the top: files to check, non-compliant files, and files overdue by more than 72 hours;
+- in the table, the file's stage, its completion rate, the time since the last submission, and the AI's alerts as badges;
+- saved views to get back to a set of filters.
+
+<Figure src="/images/effy/web/effy-04-portefeuille.jpg" caption="The “My files” page" />
+
+The “by contractor” view came from Effy's feedback at the first design review. One contractor can have fifteen open files, five of them red. The reviewer calls them once about all of them, not file by file. So files are grouped by installer.
+
+Sorting by the date of the last document received also came from Effy: that's how they measure delay.
+
+</Chapter>
+
+<Chapter id="iterations" title="Three weeks of iterations" label="Iterations">
+
+One design review a week was enough to go from the tender mockups to a version approved on February 18.
+
+<Timeline
+  head={["Date", "Step", "What changed"]}
+  rows={[
+    ["Jan 20, 2026", "Design kickoff", "Starting point: the tender mockups"],
+    ["Jan 28", "First Figma shared", "Effy asks for a by-contractor view and a statistics tab"],
+    ["Feb 4", "Review of the February 3 mockups", "Review model approved: what each color means, final decision belongs to the reviewer"],
+    ["Feb 11", "Review with the former reviewer", "Each tab justified one by one, collapsible alerts panel, certificate steps added"],
+    ["Feb 18", "Approved version", "Three-column file view, portfolio sorted by color"],
+  ]}
+/>
+
+<Frise>
+  <Figure src="/images/effy/web/effy-02-fiche-dossier-avant.jpg" caption="Tender" />
+  <Figure src="/images/effy/web/effy-05-iterations-v03.jpg" caption="V1" />
+  <Figure src="/images/effy/web/effy-06-iterations-v11.jpg" caption="V2" />
+  <Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="V3 · approved" />
+</Frise>
+
+</Chapter>
+
+<Chapter id="resultat" title="Outcome">
+
+<Stats items={[
+  ["400–500", "document extractions per day, in production"],
+  ["3", "weeks from tender to approved version"],
+  ["1", "designer on the project"],
+]} />
+
+The switch of reviewers from Priméo was planned for early October 2026, with open files carried over. Carried-over files show a marker so the reviewer can spot them.
+
+<Learn label="What I took away">When an AI does the analysis, the interface shouldn't just display its results. It should show where each conclusion comes from, and let the human decide fast.</Learn>
+
+</Chapter>

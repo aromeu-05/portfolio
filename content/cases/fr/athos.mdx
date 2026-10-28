@@ -1,0 +1,154 @@
+export const meta = {
+  lede: "J'ai conçu ATHOS, l'outil où une IA contrôle les dossiers de prime énergie d'Effy et où l'instructeur tranche. Des maquettes de l'appel d'offres à une version validée par le client, il a fallu trois semaines. L'outil tourne aujourd'hui en production.",
+  facts: [
+    ["Client", "Effy, délégataire CEE (primes à la rénovation énergétique)"],
+    ["Produit", "ATHOS, outil métier d'instruction des dossiers assisté par IA"],
+    ["Mon rôle", "Product designer, seule designer du projet"],
+    ["Conception", "Janvier – février 2026"],
+    ["Équipe", "PM, ingénieurs IA, développeurs full stack (Galadrim)"],
+  ],
+  cover: { motion: "athos", caption: "Fiche dossier · motion reconstruit depuis la V18 validée" },
+  chapters: [
+    { id: "probleme", nav: "Le problème" },
+    { id: "role", nav: "Mon rôle" },
+    { id: "d1", nav: "Décision 1" },
+    { id: "d2", nav: "Décision 2" },
+    { id: "d3", nav: "Décision 3" },
+    { id: "iterations", nav: "Itérations" },
+    { id: "resultat", nav: "Résultat" },
+  ],
+};
+
+{/* Captures : version web (1600 px) des PNG de public/images/effy. À flouter avant publication (brief, section 7). */}
+
+<Chapter id="probleme" title="Le problème">
+
+Instruire un dossier prenait 30 minutes à une heure dans Priméo, l'ancien outil d'Effy, dont environ 10 minutes par pièce à vérifier.
+
+Un dossier mêle devis, factures, avis d'imposition et attestations, souvent envoyés plusieurs fois. L'instructeur vérifie chaque pièce contre une fiche d'opération réglementaire. Il contrôle aussi la cohérence entre pièces : même adresse, même montant, un devis signé avant les travaux.
+
+ATHOS change d'approche. L'IA extrait les données, applique les règles et classe chaque dossier :
+
+<StatusList items={[
+  ["ok", "vert", ": conforme, il part à l'audit ;"],
+  ["warn", "orange", ": un point demande l'œil de l'instructeur ;"],
+  ["ko", "rouge", ": une pièce est non conforme, il faut relancer le client ou l'artisan."],
+]} />
+
+Deux contraintes cadraient le design. Un faux positif coûte cher, car le dossier est réglementé. Et Effy voulait un parcours très guidé : certains instructeurs refaisaient des vérifications inutiles.
+
+<Question>Comment rendre le travail de l'IA vérifiable en quelques secondes, sans que l'instructeur refasse tout ?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="Mon rôle">
+
+J'étais la seule designer du projet, du parcours d'instruction jusqu'aux écrans détaillés.
+
+Le projet avançait sur deux flux en parallèle : l'IA et la logique métier d'un côté, le design de l'autre. Chaque semaine, je présentais mes maquettes à la head of operations d'Effy et à un ancien instructeur. Leurs réponses nourrissaient la version suivante.
+
+J'ai conçu :
+
+- le portefeuille de l'instructeur (« Mes dossiers ») ;
+- la fiche d'instruction d'un dossier ;
+- l'attribution des dossiers et les statistiques ;
+- le back-office : fiches CEE et gestion des utilisateurs.
+
+</Chapter>
+
+<Chapter id="d1" decision="Décision 01" title="Chaque alerte se termine par une décision humaine">
+
+J'ai fait de chaque alerte de l'IA une carte qui se conclut par Valider ou Refuser. Une carte « point à vérifier » contient :
+
+- l'explication de l'IA, en clair (« le devis indique "Docteur Millet", la facture "docteur millet" : différence de casse ») ;
+- des liens vers les pièces concernées ;
+- un score de confiance ;
+- une question précise, puis deux réponses.
+
+<Figure src="/images/effy/web/effy-03-carte-point-zoom.jpg" height={960} caption="La carte « point à vérifier », annotée" />
+
+La première version proposait un troisième bouton, « Suggérer à l'IA ». Je l'ai retiré pour aligner la carte sur le modèle d'instruction validé avec Effy. Une pièce « à instruire » ne peut finir que valide ou refusée. L'instructeur garde toujours la main : refuser n'envoie rien automatiquement.
+
+L'IA rédige ensuite la demande de complément. L'instructeur la relit, la corrige si besoin, puis l'envoie.
+
+<BeforeAfter>
+  <Figure src="/images/effy/web/effy-02-fiche-dossier-avant.jpg" caption="Avant · maquette de l'appel d'offres" />
+  <Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="Après · version du 18 février" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="d2" decision="Décision 02" title="L'alerte, la donnée et la preuve côte à côte">
+
+La fiche dossier est passée de deux à trois colonnes : les alertes, les données extraites, le document source.
+
+La version de l'appel d'offres montrait les alertes et le document. Il manquait les « cadres » : les champs que l'instructeur doit remplir pour générer l'attestation. Or, avec Effy, nous avons défini le premier critère de conformité d'un dossier : aucune information manquante dans les cadres. Ils sont donc passés au centre de l'écran.
+
+Dans les cadres :
+
+- une icône baguette marque chaque champ pré-rempli par l'IA, qui reste modifiable ;
+- un champ obligatoire vide passe en rouge, mais seulement s'il est attendu à cette étape. Un champ de facture ne l'est pas tant que la facture n'est pas arrivée ;
+- un champ rempli à la main par l'instructeur est considéré comme valide.
+
+Dans le document, un repère pointe la zone d'où vient l'information. Le panneau des alertes se replie en gardant ses compteurs, pour laisser la place au document.
+
+**L'instructeur ne cherche plus rien : il voit l'alerte, la valeur et la preuve au même endroit.**
+
+<Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="La fiche dossier du 18 février, cadres ouverts" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Décision 03" title="La couleur de l'IA organise tout le portefeuille">
+
+Le code vert, orange, rouge ne sert pas qu'à l'intérieur d'un dossier : il trie le travail de la journée. La page « Mes dossiers » répond à une question : quoi traiter en premier ?
+
+- des onglets par couleur, avec leur nombre de dossiers, et un tri par priorité par défaut ;
+- trois indicateurs en tête : dossiers à vérifier, non-conformités, et dossiers en retard de plus de 72 heures ;
+- dans le tableau, l'étape du dossier, son taux de complétion, le temps écoulé depuis le dernier envoi et les alertes de l'IA en badges ;
+- des vues sauvegardées pour retrouver un jeu de filtres.
+
+<Figure src="/images/effy/web/effy-04-portefeuille.jpg" caption="La page « Mes dossiers »" />
+
+La « vue par professionnels » vient d'un retour d'Effy au premier point de conception. Un même artisan peut avoir quinze dossiers en cours, dont cinq en rouge. L'instructeur le rappelle une fois pour tout son portefeuille, pas dossier par dossier. Les dossiers sont donc regroupés par installateur.
+
+Le tri par date du dernier document reçu vient aussi d'Effy : c'est leur mesure du retard.
+
+</Chapter>
+
+<Chapter id="iterations" title="Trois semaines d'itérations" label="Itérations">
+
+Un point de conception par semaine a suffi pour passer des maquettes de l'appel d'offres à une version validée le 18 février.
+
+<Timeline
+  head={["Date", "Étape", "Ce qui a changé"]}
+  rows={[
+    ["20 janv. 2026", "Lancement de la conception", "Base : les maquettes de l'appel d'offres"],
+    ["28 janv.", "Premier Figma partagé", "Effy demande une vue par professionnel et un onglet de statistiques"],
+    ["4 févr.", "Revue des maquettes du 3 février", "Modèle d'instruction validé : rôle de chaque couleur, décision finale à l'instructeur"],
+    ["11 févr.", "Revue avec l'ancien instructeur", "Onglets justifiés un par un, panneau d'alertes repliable, étapes de l'attestation ajoutées"],
+    ["18 févr.", "Version validée", "Fiche dossier en trois colonnes, portefeuille par couleur"],
+  ]}
+/>
+
+<Frise>
+  <Figure src="/images/effy/web/effy-02-fiche-dossier-avant.jpg" caption="Appel d'offres" />
+  <Figure src="/images/effy/web/effy-05-iterations-v03.jpg" caption="V1" />
+  <Figure src="/images/effy/web/effy-06-iterations-v11.jpg" caption="V2" />
+  <Figure src="/images/effy/web/effy-01-fiche-dossier-v18.jpg" caption="V3 · validée" />
+</Frise>
+
+</Chapter>
+
+<Chapter id="resultat" title="Résultat">
+
+<Stats items={[
+  ["400–500", "extractions de documents par jour, en production"],
+  ["3", "semaines de l'appel d'offres à la version validée"],
+  ["1", "designer sur le projet"],
+]} />
+
+La bascule des instructeurs depuis Priméo a été préparée pour début octobre 2026, avec la reprise des dossiers en cours. Les dossiers repris portent un repère visible pour l'instructeur.
+
+<Learn>Quand une IA fait l'analyse, l'interface ne doit pas juste afficher ses résultats. Elle doit montrer d'où vient chaque conclusion, et laisser l'humain trancher vite.</Learn>
+
+</Chapter>

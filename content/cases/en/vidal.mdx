@@ -1,0 +1,125 @@
+export const meta = {
+  lede: "I designed Vidal Ma Santé, the app that puts Vidal's drug database in patients' pockets. Its goal is to give each person information tailored to their own prescription.",
+  facts: [
+    ["Client", "Vidal, the reference for drug information in France"],
+    ["Product", "Vidal Ma Santé, a consumer mobile app"],
+    ["My role", "Product designer"],
+    ["Period", "2021 – 2022 (V0, V1, V1.5)"],
+    ["Team", "Galadrim PM and developers, Vidal working group"],
+  ],
+  cover: { motion: "vidal", caption: "Scan → drug page · motion rebuilt from V1.5" },
+  chapters: [
+    { id: "probleme", nav: "The problem" },
+    { id: "role", nav: "My role" },
+    { id: "d1", nav: "Decision 1" },
+    { id: "d2", nav: "Decision 2" },
+    { id: "d3", nav: "Decision 3" },
+    { id: "resultat", nav: "Outcome" },
+  ],
+};
+
+{/* The design question was written for the site, it is not in the documentation: to be validated (brief, section 6). */}
+
+<Chapter id="probleme" title="The problem">
+
+Vidal has the most reliable drug information there is, but it is written for healthcare professionals.
+
+Its business relies on doctors, pharmacists and software vendors, who pay to make prescriptions safer. The general public had never really been served. Yet 70,000 individuals had already created an account on vidal.fr.
+
+A research phase Vidal ran with patients, caregivers and clinicians had confirmed the need. The bet: turn a reference database into an app that responds to each patient's situation.
+
+The design challenge had two sides:
+
+- make highly technical medical information understandable, without distorting it;
+- personalize alerts (interactions, contraindications) based on the patient's profile and treatments.
+
+The app was also aimed at the upcoming app store of Mon espace santé, France's national digital health space, which came with security and data-exchange requirements.
+
+<Question>How do you make reference medical information understandable to every patient, without distorting it?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="My role">
+
+I designed the app's flows and screens, from V0 to V1.5.
+
+The project ran at a tight pace: a daily check-in with the Vidal team and a weekly meeting with their working group. For V1.5, design workshops with Vidal's teams informed my choices.
+
+The scope covered:
+
+- scanning a drug box, and the drug page;
+- tracking current treatments, and history;
+- self-medication guidance and interaction alerts;
+- the health profile, prescription storage and editorial content.
+
+<Figure src="/images/vidal/web/vidal-01-ouverture-visuels-stores.jpg" width={2400} height={866} caption="App store visuals for Vidal Ma Santé" />
+
+</Chapter>
+
+<Chapter id="d1" decision="Decision 01" title="A drug page that answers “can I take it?”">
+
+I split the drug page into two levels: a summary, then a “learn more” section.
+
+The summary answers a single question, broken down into three checks:
+
+- is it compatible with me?
+- is it still good, not expired?
+- does it match my symptoms?
+
+Vidal's full information is still there, but it no longer stands in the way of the answer. The tone draws on FALC, the French “easy to read and understand” standard.
+
+<Phones>
+  <Figure src="/images/vidal/web/vidal-03a-fiche-synthese.jpg" width={375} height={812} maxWidth={320} caption="The summary: what applies to me comes first" />
+  <Figure src="/images/vidal/web/vidal-03b-fiche-en-savoir-plus.jpg" width={375} height={812} maxWidth={320} caption="Learn more: Vidal's full information" />
+</Phones>
+
+</Chapter>
+
+<Chapter id="d2" decision="Decision 02" title="Graded alerts, not all at the same level">
+
+Not all interactions are equal. A food interaction, for example, calls for caution, not alarm: it shows in orange, not red. The specs also define which foods to show, so the patient isn't buried in warnings.
+
+<Phones>
+  <Figure src="/images/vidal/web/vidal-02b-store-alerte-orange-doliprane.jpg" width={1284} height={2778} maxWidth={320} caption="Caution: orange alert" />
+  <Figure src="/images/vidal/web/vidal-02c-store-pas-d-interaction-spasfon.jpg" width={1283} height={2778} maxWidth={320} caption="No serious interaction" />
+  <Figure src="/images/vidal/web/vidal-04-alertes-basees-sur-le-profil.jpg" width={375} height={667} maxWidth={320} caption="Alerts calculated from the profile and current treatment" />
+</Phones>
+
+<Todo label="Visual to come">Add a red alert next to the orange one if a screenshot exists.</Todo>
+
+</Chapter>
+
+<Chapter id="d3" decision="Decision 03" title="A health profile patients can actually fill in">
+
+Vidal's engine personalizes alerts based on the profile: allergies, sex, kidney function. But it expects a creatinine clearance in ml/min, while labs report a different value. Asking patients for that number would have been tedious and error-prone.
+
+The direction we chose: replace the lab value with a level of kidney failure (mild, moderate, severe), which the engine accepts instead.
+
+<Figure src="/images/vidal/web/vidal-05-profil-sante.jpg" width={375} height={656} maxWidth={320} caption="The health profile: personalized alerts without jargon" />
+
+<Todo label="Visual to come">Find a screenshot of the kidney failure level input (missing from the V1.5 Figma).</Todo>
+
+</Chapter>
+
+<Chapter id="resultat" title="Outcome">
+
+Vidal Ma Santé launched in late 2021 on iOS and Android, then received three awards and recognitions in 2022.
+
+<Timeline
+  head={["Date", "Recognition"]}
+  rows={[
+    ["May 2022", "First app certified by the Association du bon usage du médicament (a French association for the proper use of medicines)"],
+    ["November 2022", "Among the first 12 apps in the Mon espace santé catalog"],
+    ["Late 2022", "Prix Galien, large companies category"],
+  ]}
+/>
+
+<Stats items={[
+  ["3", "recognitions in 2022"],
+  ["3,200", "downloads at the time of certification"],
+  ["1,000+", "sign-ups, after a deliberately low-key launch"],
+]} />
+
+Vidal highlights a patient-friendly language far removed from that of a package leaflet: that is exactly what the summary page is for.
+
+</Chapter>

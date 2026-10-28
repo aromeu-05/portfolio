@@ -1,0 +1,126 @@
+export const meta = {
+  lede: "I designed Opportunity's scenario editor: the tool where a marketer chains emails, text messages, WhatsApp messages or automated calls based on how each contact responds. It was part of the full redesign of their marketing automation platform, now a SaaS product.",
+  facts: [
+    ["Client", "Opportunity, a French multichannel messaging company (email, SMS, voice)"],
+    ["Product", "Marketing automation platform, front-end redesign"],
+    ["My role", "Product designer, scenario editor and Studio applications"],
+    ["Period", "October 2025 – 2026"],
+    ["Team", "Two designers, two PMs, five full-stack developers (Galadrim)"],
+  ],
+  cover: { motion: "opportunity", caption: "Scenario editor · motion rebuilt from the Figma mockups" },
+  chapters: [
+    { id: "probleme", nav: "The problem" },
+    { id: "role", nav: "My role" },
+    { id: "d1", nav: "Decision 1" },
+    { id: "d2", nav: "Decision 2" },
+    { id: "d3", nav: "Decision 3" },
+    { id: "d4", nav: "Decision 4" },
+    { id: "resultat", nav: "Outcome" },
+  ],
+};
+
+{/* End-of-page figures (9 channels, 5 steps, 2 months of acceptance testing) need to be validated (brief, section 6). */}
+
+<Chapter id="probleme" title="The problem">
+
+For about fifteen years, Opportunity had sold messaging software that was too old to move to SaaS and had an outdated interface.
+
+Its clients are large enterprises. They use it heavily for debt collection: chasing unpaid invoices by email, text or voice message, at scale. Launching the new SaaS platform by summer 2026 was a strategic priority for the company.
+
+The heart of the product is the scenario: a sequence of messages that adapts to each contact. If the customer doesn't open the email within 48 hours, they get a text; if they click, the sequence stops. With nine channels, sending-hour rules by country and sending limits, the logic quickly becomes unreadable.
+
+<Question>How do you make complex automation logic readable and editable for a marketer, without asking them to think like a developer?</Question>
+
+</Chapter>
+
+<Chapter id="role" title="My role">
+
+There were two of us designing the platform. I owned the scenario editor and the Studio applications, including Touch & Pay, the payment flow sent by link.
+
+{/* Hide the logo if the client can't be named (brief, section 7) */}
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-05a-touch-and-pay-studio-applications.jpg" width={1440} height={840} caption="Studio · the applications, including Touch & Pay" />
+  <Figure src="/images/opportunity/web/opportunity-05b-touch-and-pay-page-paiement.jpg" width={1440} height={850} caption="Touch & Pay · the page the customer receives" />
+</BeforeAfter>
+
+Every week, a design review with Opportunity's head of product approved or sent back each mockup, with decisions logged screen by screen. Developers worked in parallel on a test environment, which Opportunity's business teams then put through acceptance testing using test scripts.
+
+</Chapter>
+
+<Chapter id="d1" decision="Decision 01" title="A scenario that reads like a diagram">
+
+The editor is a visual canvas: you start from “Start of scenario,” which shows how many contacts are included, and add blocks connected to each other.
+
+The palette on the left splits blocks into two families:
+
+- **logic**: condition, A/B test, wait, end of scenario;
+- **channels**: email, SMS, RCS, WhatsApp, voice note, callbot, each in a simple or conversational version.
+
+The scenario can split by country right from the start, with each branch keeping its own sending-hour rules.
+
+<Figure src="/images/opportunity/web/opportunity-01-ouverture-editeur-scenario.jpg" width={1440} height={840} caption="The scenario editor, with the Email block's settings panel open" />
+
+</Chapter>
+
+<Chapter id="d2" decision="Decision 02" title="Every message leads to reactions, not conditions to write">
+
+Each sending block comes with four ready-made outputs: no interaction, partial interaction, goal reached, and error. The marketer doesn't write any rules: they click the “+” on an output to say what happens next.
+
+The “Error” output is handled by the platform, which stops the scenario. A tooltip explains this, so nobody tries to connect it.
+
+<Figure src="/images/opportunity/web/opportunity-02-zoom-quatre-sorties-bloc-email.jpg" width={340} height={355} maxWidth={340} caption="The four outputs of a sending block; the Error output is handled by the platform" />
+
+</Chapter>
+
+<Chapter id="d3" decision="Decision 03" title="Setting up a block in guided steps">
+
+Clicking a block opens a numbered side panel: content, sender, analysis window, send throttling. Every technical setting comes with a plain-language explanation:
+
+- the analysis window defaults to 48 hours, with a benchmark: after 96 hours, there is on average no more interaction;
+- the hourly sending limit explains that it protects the sender's reputation.
+
+The defaults do the work; experts can adjust them.
+
+<Figure src="/images/opportunity/web/opportunity-01-ouverture-editeur-scenario.jpg" width={1440} height={840} caption="The step-by-step panel: content, sender, analysis window, throttling" />
+
+</Chapter>
+
+<Chapter id="d4" decision="Decision 04" title="Creating a scenario in five steps">
+
+The first version put everything in the editor. I restructured it into a step-by-step flow, approved in May 2026:
+
+1. the scenario's framework;
+2. the recipients: a list, then a segment of that list, with the option to create one without leaving the flow;
+3. the visual editor;
+4. the settings: sending hours by country and webhooks;
+5. a summary of the credits used, before launch.
+
+The summary follows a rule agreed with Opportunity: each subscription caps credits per channel. The marketer sees what their scenario will cost before sending it.
+
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-03a-avant-first-version-editeur.jpg" width={1440} height={850} caption="Before · everything in the editor" />
+  <Figure src="/images/opportunity/web/opportunity-03b-apres-etape1-type-de-scenario.jpg" width={1075} height={928} caption="After · step 1, the scenario's framework" />
+</BeforeAfter>
+
+<BeforeAfter>
+  <Figure src="/images/opportunity/web/opportunity-03c-apres-etape2-destinataires.jpg" width={1075} height={1461} caption="Step 2 · list, segments and destination countries" />
+  <Figure src="/images/opportunity/web/opportunity-04-recap-credits.jpg" width={1075} height={1331} caption="Step 5 · the credit summary before launch" />
+</BeforeAfter>
+
+</Chapter>
+
+<Chapter id="resultat" title="Outcome">
+
+<Stats items={[
+  ["9", "sending channels in a single scenario"],
+  ["5", "steps to create a scenario"],
+  ["2", "months of acceptance testing by business teams"],
+]} />
+
+The platform has been in development since April 2026, and Opportunity's business teams ran acceptance testing on it in June and July 2026.
+
+These test sessions with real users surfaced very concrete feedback, such as aligning the WhatsApp terminology with Meta's, or a regulatory change to sending hours. They fed directly into the next round of design.
+
+<Learn label="What I took away">In an automation tool, design doesn't simplify the logic, it makes it visible. Good defaults and explanations in the right place do the rest.</Learn>
+
+</Chapter>
